@@ -8,7 +8,6 @@ int main() {
     while (c != EOF) {
         fputc(c, fp2);
         c = fgetc(fp);
-        //printf("%c", c);
     }
     fclose(fp);
     fclose(fp2);
