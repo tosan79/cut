@@ -1,8 +1,9 @@
+PRG = cut
 CC = gcc
-CFLAGS = -std=c99 -Wall -Wextra
+CFLAGS = -std=c99 -Wall -Wextra -lpthread
 
-cut: main.o
-	$(CC) -o cut main.c $(CFLAGS)
+$(PRG): main.o
+	$(CC) -o $(PRG) main.c $(CFLAGS)
 
 clean:
-	rm *.o cut
+	rm *.o $(PRG)

@@ -1,14 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 
-int main() {
+#define STAT_MAX_LEN 4000
+
+char buffer[STAT_MAX_LEN];
+
+void Reader() {
     FILE* fp = fopen("/proc/stat", "r");
-    FILE* fp2 = fopen("./out", "w+");
     char c = fgetc(fp);
+    int i = 0;
     while (c != EOF) {
-        fputc(c, fp2);
+        buffer[i] = c;
         c = fgetc(fp);
+        i++;
     }
     fclose(fp);
-    fclose(fp2);
+    printf("%s", buffer);
+}
+
+int main() {
+    Reader();
 }
