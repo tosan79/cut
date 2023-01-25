@@ -8,5 +8,13 @@
 #define FIELDS_LEN 10
 #define NUM_OF_CORES 5
 
+enum fields {user, nice, system1, idle1, iowait, irq, softirq, steal, guest, guest_nice};
+
+struct stats {
+    char core[NUM_OF_CORES];
+    int value[FIELDS_LEN];
+};
+
 void Reader();
 void Analyzer();
+void Printer();
