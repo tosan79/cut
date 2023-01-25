@@ -7,8 +7,17 @@ int main() {
         idle[i][0] = 0;
         total[i][0] = 0;
     }
-    
-    Reader();
-    Analyzer();
-    Printer();
+    pthread_t tid[3];
+    while (1) {
+        pthread_create(&tid[0], NULL, Reader, NULL);
+        pthread_create(&tid[1], NULL, Analyzer, NULL);
+        pthread_create(&tid[2], NULL, Printer, NULL);
+
+        for (int i = 0; i < NUM_OF_CORES; i++) {
+            idle[i][0] = idle[i][1];
+            total[i][0] = total[i][1];
+        }
+
+        sleep(1);
+    }
 }

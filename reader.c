@@ -3,7 +3,7 @@
 char buffer[STAT_MAX_LEN];
 struct stats cpu[NUM_OF_CORES];
 
-void Reader() {
+void *Reader(void *vargp) {
     FILE* fp = fopen("/proc/stat", "r");
     char c = fgetc(fp);
     int i = 0;

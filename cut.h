@@ -15,6 +15,6 @@ struct stats {
     int value[FIELDS_LEN];
 };
 
-void Reader();
-void Analyzer();
-void Printer();
+void *Reader(void *vargp);
+void *Analyzer(void *vargp);
+void *Printer(void *vargp);

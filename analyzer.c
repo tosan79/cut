@@ -5,16 +5,7 @@ extern struct stats cpu[NUM_OF_CORES];
 int idle[NUM_OF_CORES][2], total[NUM_OF_CORES][2];
 double use[NUM_OF_CORES];
 
-void Analyzer() {
-    /*
-    for (int i = 0; i < NUM_OF_CORES; i++) {
-        printf("%s ", cpu[i].core);
-        for (int j = user; j <= guest_nice; j++)
-            printf("%d ", cpu[i].value[j]);
-        printf("\n");
-    }    
-    */
-
+void *Analyzer(void *vargp) {
     for (int i = 0; i < NUM_OF_CORES; i++) {
         idle[i][1] = cpu[i].value[idle1] + cpu[i].value[iowait];
         total[i][1] = 0;
@@ -25,8 +16,5 @@ void Analyzer() {
         double x = total[i][1] - total[i][0];
         double y = idle[i][1] - idle[i][0]; 
         use[i] = (x - y) * 100.0 / x;
-        
-        idle[i][0] = idle[i][1];
-        total[i][0] = total[i][1];
     }
 }
