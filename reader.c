@@ -1,7 +1,7 @@
 #include "cut.h"
 
 char buffer[STAT_MAX_LEN];
-struct stats cpu[NUM_OF_CORES];
+struct stats cpu;
 
 void *Reader(void *vargp) {
     FILE* fp = fopen("/proc/stat", "r");
@@ -16,11 +16,19 @@ void *Reader(void *vargp) {
 
     char *p = strtok(buffer, " ");
     for (int i = 0; i < NUM_OF_CORES; i++) {
-        strcpy(cpu[i].core, p);
+        strcpy(cpu.core[i], p);
         for (int j = user; j <= guest_nice; j++) {
             p = strtok(NULL, " \n");
-            cpu[i].value[j] = atoi(p);
+            cpu.value[i][j] = atoi(p);
         }
         p = strtok(NULL, " \n");
     }
+
+    for (int i = 0; i < NUM_OF_CORES; i++) {
+        printf("%s ", cpu.core[i]);
+        for (int j = user; j <= guest_nice; j++)
+            printf("%d ", cpu.value[i][j]);
+        printf("\n");
+    }
+    return NULL;
 }

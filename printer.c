@@ -1,6 +1,5 @@
 #include "cut.h"
 
-extern int idle[NUM_OF_CORES][2], total[NUM_OF_CORES][2];
 extern double use[NUM_OF_CORES];
 
 void *Printer(void *vargp) {
@@ -8,4 +7,5 @@ void *Printer(void *vargp) {
     for (int i = 1; i < NUM_OF_CORES; i++)
         printf("[cpu core %d] usage: %f%%\n", i, use[i]);
     printf("\n");
+    return NULL;
 }
