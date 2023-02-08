@@ -23,12 +23,16 @@ void *Reader(void *vargp) {
         }
         p = strtok(NULL, " \n");
     }
+    cpu.next = NULL;
+    //sq_insert(&qp, &cpu)
 
+/*
     for (int i = 0; i < NUM_OF_CORES; i++) {
         printf("%s ", cpu.core[i]);
         for (int j = user; j <= guest_nice; j++)
             printf("%d ", cpu.value[i][j]);
         printf("\n");
     }
+*/
     return NULL;
 }
