@@ -1,6 +1,7 @@
 #include "cut.h"
 
 //extern int idle[NUM_OF_CORES][2], total[NUM_OF_CORES][2];
+stats_queue *sqp;
 
 int main() {
     /*for (int i = 0; i < NUM_OF_CORES; i++) {
@@ -9,6 +10,7 @@ int main() {
     }*/
     
     pthread_t tid[3];
+    sqp = sq_init();
     while (1) {
         pthread_create(&tid[0], NULL, Reader, NULL);
     //pthread_create(&tid[1], NULL, Analyzer, NULL);

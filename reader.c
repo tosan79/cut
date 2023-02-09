@@ -2,6 +2,7 @@
 
 char buffer[STAT_MAX_LEN];
 struct stats cpu;
+extern stats_queue *sqp;
 
 void *Reader(void *vargp) {
     FILE* fp = fopen("/proc/stat", "r");
@@ -24,15 +25,7 @@ void *Reader(void *vargp) {
         p = strtok(NULL, " \n");
     }
     cpu.next = NULL;
-    //sq_insert(&qp, &cpu)
-
-/*
-    for (int i = 0; i < NUM_OF_CORES; i++) {
-        printf("%s ", cpu.core[i]);
-        for (int j = user; j <= guest_nice; j++)
-            printf("%d ", cpu.value[i][j]);
-        printf("\n");
-    }
-*/
+    sq_insert(sqp, &cpu);
+    sq_print(sqp);
     return NULL;
 }

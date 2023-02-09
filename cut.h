@@ -27,9 +27,10 @@ typedef struct {
 } stats_queue;
 
 stats_queue *sq_init();
-void sq_destroy(stats_queue *qp);
 void sq_insert(stats_queue *qp, const struct stats *sp);
-struct stats *sq_delete(stats_queue *qp);
+void sq_delete(stats_queue *qp);
+void sq_print(stats_queue *qp);
+//void sq_destroy(stats_queue *qp);
 
 void *Reader(void *vargp);
 //void *Analyzer(void *vargp);
