@@ -13,6 +13,7 @@
 enum fields {user, nice1, system1, idle1, iowait, irq, softirq, steal, guest, guest_nice};
 
 struct stats {
+    int id;
     char core[NUM_OF_CORES][CORE_NAME_LEN];
     int value[NUM_OF_CORES][FIELDS_LEN];
     struct stats *next;
@@ -27,7 +28,7 @@ typedef struct {
 } stats_queue;
 
 stats_queue *sq_init();
-void sq_insert(stats_queue *qp, struct stats *sp);
+void sq_insert(stats_queue *qp, const struct stats *sp);
 void sq_delete(stats_queue *qp);
 void sq_print(stats_queue *qp);
 //void sq_destroy(stats_queue *qp);
