@@ -1,29 +1,28 @@
 #include "cut.h"
 
-//extern int idle[NUM_OF_CORES][2], total[NUM_OF_CORES][2];
 stats_queue *sqp;
+struct stats cpu;
 
 int main() {
-    /*for (int i = 0; i < NUM_OF_CORES; i++) {
-        idle[i][0] = 0;
-        total[i][0] = 0;
-    }*/
-    
-    pthread_t tid[3];
+    pthread_t tid;    
     sqp = sq_init();
+    sq_print(sqp);
     while (1) {
-        pthread_create(&tid[0], NULL, Reader, NULL);
-    //pthread_create(&tid[1], NULL, Analyzer, NULL);
-    //pthread_create(&tid[2], NULL, Printer, NULL);
-
-    /*for (int i = 0; i < NUM_OF_CORES; i++) {
-        idle[i][0] = idle[i][1];
-        total[i][0] = total[i][1];
-    }*/
-
-        pthread_join(tid[0], NULL);
+        pthread_create(&tid, NULL, Reader, NULL);
+        pthread_join(tid, NULL);
         sleep(1);
-    //pthread_join(tid[1], NULL);
-    //pthread_join(tid[2], NULL);
     }
+    /* testing the insert
+    sq_print(sqp);
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 4; j++) {
+            cpu.core[i][j] = 'x';
+            cpu.value[i][j] = 1;
+        }
+        cpu.core[i][4] = '\0';
+        for (int j = 4; j < 10; j++)
+            cpu.value[i][j] = 1;
+    }
+    sq_insert(sqp, &cpu);
+    sq_print(sqp); */
 }

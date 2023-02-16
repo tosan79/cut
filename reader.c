@@ -1,7 +1,7 @@
 #include "cut.h"
 
 char buffer[STAT_MAX_LEN];
-struct stats cpu;
+extern struct stats cpu;
 extern stats_queue *sqp;
 
 void *Reader(void *vargp) {
@@ -24,8 +24,7 @@ void *Reader(void *vargp) {
         }
         p = strtok(NULL, " \n");
     }
-    cpu.next = NULL;
+
     sq_insert(sqp, &cpu);
     sq_print(sqp);
-    return NULL;
 }

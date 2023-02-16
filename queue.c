@@ -10,7 +10,7 @@ stats_queue *sq_init() {
     return qp;
 }
 
-void sq_insert(stats_queue *qp, const struct stats *sp) {
+void sq_insert(stats_queue *qp, struct stats *sp) {
     sem_wait(&qp->slots);
     struct stats *new_sp = (struct stats *)malloc(sizeof(struct stats));
     for (int i = 0; i < NUM_OF_CORES; i++) {
@@ -50,6 +50,10 @@ void sq_delete(stats_queue *qp) {
 
 void sq_print(stats_queue *qp) {
     struct stats *sp = qp->first;
+    if (sp == NULL) {
+        printf("stats queue empty\n");
+        return;
+    }
     do {
         for (int i = 0; i < NUM_OF_CORES; i++) {
             printf("%s ", sp->core[i]);
@@ -57,6 +61,6 @@ void sq_print(stats_queue *qp) {
                 printf("%d ", sp->value[i][j]);
             printf("\n");
         }
-        sp = qp->first->next;
-    } while (sp->next != NULL);
+        sp = sp->next;
+    } while (sp != NULL);
 }
