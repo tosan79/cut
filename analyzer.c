@@ -1,20 +1,26 @@
 #include "cut.h"
 
-extern struct stats cpu;
-int idle[NUM_OF_CORES][2], total[NUM_OF_CORES][2];
-double use[NUM_OF_CORES];
-
 void *Analyzer(void *vargp) {
+    stats_queue *sqp = (stats_queue *)vargp;
+    struct stats *cpu[2];
+    if (sqp->size < 2)
+        return NULL;
+
+    cpu[0] = sqp->first;
+    cpu[1] = sqp->first->next;
+
+    int idle[2][NUM_OF_CORES], total[2][NUM_OF_CORES]; // a[x][] - values for cpu[x]
+    double total_dif[NUM_OF_CORES], idle_dif[NUM_OF_CORES];
     for (int i = 0; i < NUM_OF_CORES; i++) {
-        idle[i][1] = cpu.value[i][idle1] + cpu.value[i][iowait];
-        total[i][1] = 0;
-        for (int j = user; j <= guest_nice; j++) {
-            total[i][1] += cpu.value[i][j];
+        for (int k = 0; k < 2; k++) {
+            idle[k][i] = cpu[k]->value[i][idle1] + cpu[k]->value[i][iowait];
+            total[k][i] = 0;
+            for (int j = user; j <= guest_nice; j++)
+                total[k][i] += cpu[k]->value[i][j];
         }
-        
-        double x = total[i][1] - total[i][0];
-        double y = idle[i][1] - idle[i][0]; 
-        use[i] = (x - y) * 100.0 / x;
+        total_dif[i] = total[1][i] - total[0][i];
+        idle_dif[i] = idle[1][i] - idle[0][i];
+        cpu[1]->usage[i] = (total_dif[i] - idle_dif[i]) * 100.0 / total_dif[i];
     }
     return NULL;
 }

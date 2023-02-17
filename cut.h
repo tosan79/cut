@@ -18,6 +18,7 @@ struct stats {
     char core[NUM_OF_CORES][CORE_NAME_LEN];
     int value[NUM_OF_CORES][FIELDS_LEN];
     struct stats *next;
+    double usage[NUM_OF_CORES];
 };
 
 typedef struct {
@@ -35,5 +36,5 @@ void sq_print(stats_queue *qp);
 //void sq_destroy(stats_queue *qp);
 
 void *Reader(void *vargp);
-//void *Analyzer(void *vargp);
+void *Analyzer(void *vargp);
 //void *Printer(void *vargp);
