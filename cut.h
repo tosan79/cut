@@ -9,6 +9,7 @@
 #define FIELDS_LEN 10
 #define NUM_OF_CORES 5
 #define CORE_NAME_LEN 5
+#define K 11
 
 enum fields {user, nice1, system1, idle1, iowait, irq, softirq, steal, guest, guest_nice};
 

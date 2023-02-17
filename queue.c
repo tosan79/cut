@@ -6,7 +6,7 @@ stats_queue *sq_init() {
     qp->first = qp->last = NULL;
     pthread_mutex_init(&qp->mutex, NULL);
     sem_init(&qp->items, 0, 0);
-    sem_init(&qp->slots, 0, 3);
+    sem_init(&qp->slots, 0, K);
     qp->size = 0;
     printf("queue initialized.\n");
     x_id = 0;
