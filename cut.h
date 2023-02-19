@@ -36,5 +36,6 @@ void sq_print(stats_queue *qp);
 //void sq_destroy(stats_queue *qp);
 
 void *Reader(void *vargp);
+void *Reader2(void *vargp);
 void *Analyzer(void *vargp);
-//void *Printer(void *vargp);
+void *Printer(void *vargp);

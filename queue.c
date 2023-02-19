@@ -9,7 +9,7 @@ stats_queue *sq_init() {
     sem_init(&qp->slots, 0, K);
     qp->size = 0;
     stats_id = 0;
-    printf("queue initialized.\n");
+    //printf("queue initialized.\n");
     return qp;
 }
 
@@ -33,7 +33,7 @@ void sq_insert(stats_queue *qp, const struct stats *sp) {
     qp->size++;
     pthread_mutex_unlock(&qp->mutex);
     sem_post(&qp->items);
-    printf("inserted item on queue. queue size: %d\n", qp->size);
+    //printf("inserted item on queue. queue size: %d\n", qp->size);
     return;
 }
 
@@ -51,7 +51,7 @@ void sq_delete(stats_queue *qp) {
     free(sp);
     pthread_mutex_unlock(&qp->mutex);
     sem_post(&qp->slots);
-    printf("deleted item from queue.\n");
+    //printf("deleted (first) item from queue.\n");
 }
 
 void sq_print(stats_queue *qp) {
@@ -60,7 +60,7 @@ void sq_print(stats_queue *qp) {
         printf("stats queue empty.\n");
         return;
     }
-    printf("printing queue:\n");
+    //printf("printing queue:\n");
     do {
         printf("[%d]\n", sp->id);
         for (int i = 0; i < NUM_OF_CORES; i++) {

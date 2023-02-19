@@ -8,7 +8,7 @@ void *Analyzer(void *vargp) {
 
     cpu[0] = sqp->first;
     cpu[1] = sqp->first->next;
-
+    
     int idle[2][NUM_OF_CORES], total[2][NUM_OF_CORES]; // a[x][] - values for cpu[x]
     double total_dif[NUM_OF_CORES], idle_dif[NUM_OF_CORES];
     for (int i = 0; i < NUM_OF_CORES; i++) {
