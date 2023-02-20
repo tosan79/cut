@@ -4,7 +4,7 @@ void *Reader(void *vargp) {
     stats_queue *sqp = (stats_queue *)vargp;
     char buffer[STAT_MAX_LEN];
 
-    FILE* fp = fopen("out1", "r");
+    FILE* fp = fopen("/proc/stat", "r");
     char c = fgetc(fp);
     int i = 0;
     while (c != EOF) {
@@ -81,6 +81,81 @@ void *Reader2(void *vargp) {
     }
     cpu2.next = NULL;
     sq_insert(sqp, &cpu2);
+
+    // 3
+    char buffer3[STAT_MAX_LEN];
+    fp = fopen("out3", "r");
+    c = fgetc(fp);
+    i = 0;
+    while (c != EOF) {
+        buffer3[i] = c;
+        c = fgetc(fp);
+        i++;
+    }
+    fclose(fp);
+
+    struct stats cpu3;
+    p = strtok(buffer3, " ");
+    for (int i = 0; i < NUM_OF_CORES; i++) {
+        strcpy(cpu3.core[i], p);
+        for (int j = user; j <= guest_nice; j++) {
+            p = strtok(NULL, " \n");
+            cpu3.value[i][j] = atoi(p);
+        }
+        p = strtok(NULL, " \n");
+    }
+    cpu3.next = NULL;
+    sq_insert(sqp, &cpu3);
+
+    // 3
+    char buffer3[STAT_MAX_LEN];
+    fp = fopen("out3", "r");
+    c = fgetc(fp);
+    i = 0;
+    while (c != EOF) {
+        buffer3[i] = c;
+        c = fgetc(fp);
+        i++;
+    }
+    fclose(fp);
+
+    struct stats cpu3;
+    p = strtok(buffer3, " ");
+    for (int i = 0; i < NUM_OF_CORES; i++) {
+        strcpy(cpu3.core[i], p);
+        for (int j = user; j <= guest_nice; j++) {
+            p = strtok(NULL, " \n");
+            cpu3.value[i][j] = atoi(p);
+        }
+        p = strtok(NULL, " \n");
+    }
+    cpu3.next = NULL;
+    sq_insert(sqp, &cpu3);
+
+    // 3
+    char buffer3[STAT_MAX_LEN];
+    fp = fopen("out3", "r");
+    c = fgetc(fp);
+    i = 0;
+    while (c != EOF) {
+        buffer3[i] = c;
+        c = fgetc(fp);
+        i++;
+    }
+    fclose(fp);
+
+    struct stats cpu3;
+    p = strtok(buffer3, " ");
+    for (int i = 0; i < NUM_OF_CORES; i++) {
+        strcpy(cpu3.core[i], p);
+        for (int j = user; j <= guest_nice; j++) {
+            p = strtok(NULL, " \n");
+            cpu3.value[i][j] = atoi(p);
+        }
+        p = strtok(NULL, " \n");
+    }
+    cpu3.next = NULL;
+    sq_insert(sqp, &cpu3);
 
     // 3
     char buffer3[STAT_MAX_LEN];

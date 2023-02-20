@@ -2,6 +2,7 @@
 
 void *Analyzer(void *vargp) {
     stats_queue *sqp = (stats_queue *)vargp;
+    pthread_mutex_lock(&sqp->mutex);
     struct stats *cpu[2];
     if (sqp->size < 2)
         return NULL;
@@ -22,5 +23,6 @@ void *Analyzer(void *vargp) {
         idle_dif[i] = idle[1][i] - idle[0][i];
         cpu[1]->usage[i] = (total_dif[i] - idle_dif[i]) * 100.0 / total_dif[i];
     }
+    pthread_mutex_unlock(&sqp->mutex);
     return NULL;
 }

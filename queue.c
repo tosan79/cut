@@ -73,3 +73,14 @@ void sq_print(stats_queue *qp) {
         sp = sp->next;
     } while (sp != NULL);
 }
+
+void sq_destroy(stats_queue *qp) {
+    if (qp == NULL)
+        return;
+    while (qp->first != NULL) {
+        struct stats *sp = qp->first;
+        qp->first = qp->first->next;
+        free(sp);
+    }
+    free(qp);
+}
