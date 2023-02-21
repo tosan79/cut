@@ -7,7 +7,7 @@
 
 #define STAT_MAX_LEN 4000
 #define FIELDS_LEN 10
-#define NUM_OF_CORES 5
+#define NUM_OF_CORES 3
 #define CORE_NAME_LEN 5
 #define K 11
 
@@ -38,4 +38,4 @@ void sq_destroy(stats_queue *qp);
 void *Reader(void *vargp);
 void *Analyzer(void *vargp);
 void *Printer(void *vargp);
-void *Reader2(void *vargp);
+//void *Reader2(void *vargp);

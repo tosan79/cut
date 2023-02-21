@@ -29,7 +29,7 @@ void *Reader(void *vargp) {
     sq_insert(sqp, &cpu);
     return NULL;
 }
-
+/*
 void *Reader2(void *vargp) {
     stats_queue *sqp = (stats_queue *)vargp;
     char buffer[STAT_MAX_LEN];
@@ -184,3 +184,4 @@ void *Reader2(void *vargp) {
 
     return NULL;
 }
+*/
