@@ -107,80 +107,80 @@ void *Reader2(void *vargp) {
     cpu3.next = NULL;
     sq_insert(sqp, &cpu3);
 
-    // 3
-    char buffer3[STAT_MAX_LEN];
-    fp = fopen("out3", "r");
+    // 4
+    char buffer4[STAT_MAX_LEN];
+    fp = fopen("out4", "r");
     c = fgetc(fp);
     i = 0;
     while (c != EOF) {
-        buffer3[i] = c;
+        buffer4[i] = c;
         c = fgetc(fp);
         i++;
     }
     fclose(fp);
 
-    struct stats cpu3;
-    p = strtok(buffer3, " ");
+    struct stats cpu4;
+    p = strtok(buffer4, " ");
     for (int i = 0; i < NUM_OF_CORES; i++) {
-        strcpy(cpu3.core[i], p);
+        strcpy(cpu4.core[i], p);
         for (int j = user; j <= guest_nice; j++) {
             p = strtok(NULL, " \n");
-            cpu3.value[i][j] = atoi(p);
+            cpu4.value[i][j] = atoi(p);
         }
         p = strtok(NULL, " \n");
     }
-    cpu3.next = NULL;
-    sq_insert(sqp, &cpu3);
+    cpu4.next = NULL;
+    sq_insert(sqp, &cpu4);
 
-    // 3
-    char buffer3[STAT_MAX_LEN];
-    fp = fopen("out3", "r");
+    // 5
+    char buffer5[STAT_MAX_LEN];
+    fp = fopen("out5", "r");
     c = fgetc(fp);
     i = 0;
     while (c != EOF) {
-        buffer3[i] = c;
+        buffer5[i] = c;
         c = fgetc(fp);
         i++;
     }
     fclose(fp);
 
-    struct stats cpu3;
-    p = strtok(buffer3, " ");
+    struct stats cpu5;
+    p = strtok(buffer5, " ");
     for (int i = 0; i < NUM_OF_CORES; i++) {
-        strcpy(cpu3.core[i], p);
+        strcpy(cpu5.core[i], p);
         for (int j = user; j <= guest_nice; j++) {
             p = strtok(NULL, " \n");
-            cpu3.value[i][j] = atoi(p);
+            cpu5.value[i][j] = atoi(p);
         }
         p = strtok(NULL, " \n");
     }
-    cpu3.next = NULL;
-    sq_insert(sqp, &cpu3);
+    cpu5.next = NULL;
+    sq_insert(sqp, &cpu5);
 
-    // 3
-    char buffer3[STAT_MAX_LEN];
-    fp = fopen("out3", "r");
+    // 6
+    char buffer6[STAT_MAX_LEN];
+    fp = fopen("out6", "r");
     c = fgetc(fp);
     i = 0;
     while (c != EOF) {
-        buffer3[i] = c;
+        buffer6[i] = c;
         c = fgetc(fp);
         i++;
     }
     fclose(fp);
 
-    struct stats cpu3;
-    p = strtok(buffer3, " ");
+    struct stats cpu6;
+    p = strtok(buffer6, " ");
     for (int i = 0; i < NUM_OF_CORES; i++) {
-        strcpy(cpu3.core[i], p);
+        strcpy(cpu6.core[i], p);
         for (int j = user; j <= guest_nice; j++) {
             p = strtok(NULL, " \n");
-            cpu3.value[i][j] = atoi(p);
+            cpu6.value[i][j] = atoi(p);
         }
         p = strtok(NULL, " \n");
     }
-    cpu3.next = NULL;
-    sq_insert(sqp, &cpu3);
+    cpu6.next = NULL;
+    sq_insert(sqp, &cpu6);
 
     return NULL;
 }
