@@ -4,6 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <semaphore.h>
+#include <assert.h>
 
 #define STAT_MAX_LEN 4000
 #define FIELDS_LEN 10
@@ -34,8 +35,8 @@ void sq_insert(stats_queue *qp, const struct stats *sp);
 void sq_delete(stats_queue *qp);
 void sq_print(stats_queue *qp);
 void sq_destroy(stats_queue *qp);
+int sq_is_empty(stats_queue *qp);
 
 void *Reader(void *vargp);
 void *Analyzer(void *vargp);
 void *Printer(void *vargp);
-//void *Reader2(void *vargp);

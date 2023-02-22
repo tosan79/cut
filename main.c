@@ -3,7 +3,8 @@
 int main() {
     pthread_t tid[3];
     stats_queue *sqp = sq_init();
-    
+    assert(sq_is_empty(sqp));
+
     // we create the Reader thread once before the main loop to ensure the queue of statistics
     // is initialized correctly i.e. with two entries (to be compared)
     pthread_create(&tid[0], NULL, Reader, (void *)sqp);

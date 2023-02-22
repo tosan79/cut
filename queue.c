@@ -14,6 +14,7 @@ stats_queue *sq_init() {
 }
 
 void sq_insert(stats_queue *qp, const struct stats *sp) {
+    int t = qp->size;
     sem_wait(&qp->slots);
     struct stats *new_sp = (struct stats *)malloc(sizeof(struct stats));
     new_sp->id = stats_id++;
@@ -34,12 +35,13 @@ void sq_insert(stats_queue *qp, const struct stats *sp) {
     pthread_mutex_unlock(&qp->mutex);
     sem_post(&qp->items);
     //printf("inserted item on queue. queue size: %d\n", qp->size);
-    return;
+    assert(qp->size == t + 1);
 }
 
 void sq_delete(stats_queue *qp) {
     if (qp == NULL)
         return;
+    int t = qp->size;
     sem_wait(&qp->items);
     pthread_mutex_lock(&qp->mutex);
     struct stats *sp = qp->first;
@@ -52,6 +54,7 @@ void sq_delete(stats_queue *qp) {
     pthread_mutex_unlock(&qp->mutex);
     sem_post(&qp->slots);
     //printf("deleted (first) item from queue.\n");
+    assert(qp->size == t - 1)l;
 }
 
 void sq_print(stats_queue *qp) {
@@ -60,7 +63,7 @@ void sq_print(stats_queue *qp) {
         printf("stats queue empty.\n");
         return;
     }
-    //printf("printing queue:\n");
+    printf("printing queue:\n");
     do {
         printf("[%d]\n", sp->id);
         for (int i = 0; i < NUM_OF_CORES; i++) {
@@ -84,4 +87,10 @@ void sq_destroy(stats_queue *qp) {
         free(sp);
     }
     free(qp);
+}
+
+int sq_is_empty(stats_queue *qp) {
+    if (qp == NULL)
+	return -1;
+    return qp->first == NULL;
 }

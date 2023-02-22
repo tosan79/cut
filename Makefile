@@ -1,6 +1,6 @@
 PRG = cut
 CC = gcc
-CFLAGS = -std=c99 -lpthread -Wall -Wextra
+CFLAGS = -std=c99 -lpthread
 
 $(PRG): main.o queue.o reader.o analyzer.o printer.o
 	$(CC) -o $(PRG) main.o queue.o reader.o analyzer.o printer.o $(CFLAGS)
@@ -22,3 +22,6 @@ printer.o: printer.c cut.h
 
 clean:
 	rm *.o $(PRG)
+
+test:
+	./cut
