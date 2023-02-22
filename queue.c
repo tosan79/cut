@@ -54,7 +54,7 @@ void sq_delete(stats_queue *qp) {
     pthread_mutex_unlock(&qp->mutex);
     sem_post(&qp->slots);
     //printf("deleted (first) item from queue.\n");
-    assert(qp->size == t - 1)l;
+    assert(qp->size == t - 1);
 }
 
 void sq_print(stats_queue *qp) {
