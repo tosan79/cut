@@ -14,7 +14,6 @@ stats_queue *sq_init() {
 }
 
 void sq_insert(stats_queue *qp, const struct stats *sp) {
-    int t = qp->size;
     sem_wait(&qp->slots);
     struct stats *new_sp = (struct stats *)malloc(sizeof(struct stats));
     new_sp->id = stats_id++;
@@ -25,6 +24,7 @@ void sq_insert(stats_queue *qp, const struct stats *sp) {
     }
     new_sp->next = NULL;
     pthread_mutex_lock(&qp->mutex);
+    int t = qp->size;
     if (qp->first == NULL)
         qp->first = qp->last = new_sp;
     else {
@@ -41,9 +41,9 @@ void sq_insert(stats_queue *qp, const struct stats *sp) {
 void sq_delete(stats_queue *qp) {
     if (qp == NULL)
         return;
-    int t = qp->size;
     sem_wait(&qp->items);
     pthread_mutex_lock(&qp->mutex);
+    int t = qp->size;
     struct stats *sp = qp->first;
     if (qp->first == qp->last)
         qp->first = qp->last = NULL;
